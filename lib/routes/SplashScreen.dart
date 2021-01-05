@@ -1,29 +1,18 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:saviour_app/routes/Home.dart';
+import 'package:saviour_app/util/SlideFadeTransition.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => FadeIn();
+  State<StatefulWidget> createState() => _SplashScreenState();
 }
 
-class FadeIn extends State<SplashScreen> {
+class _SplashScreenState extends State<SplashScreen> {
 
-  FlutterLogoStyle _logoStyle = FlutterLogoStyle.markOnly;
-
-  FadeIn() {
-    Timer(const Duration(milliseconds: 1500), () {
-      setState(() {
-        _logoStyle = FlutterLogoStyle.horizontal;
-      });
-    });
-  }
-
-  @override
-  void setState(fn) {
-    super.setState(fn);
-    Timer(Duration(seconds: 1),(){
-      Navigator.of(context).pushReplacement(
+  _SplashScreenState() {
+    Timer(const Duration(milliseconds: 2000), () {
+        Navigator.of(context).pushReplacement(
           new PageRouteBuilder(
             opaque: false,
             transitionDuration: Duration(milliseconds: 1500),
@@ -38,7 +27,7 @@ class FadeIn extends State<SplashScreen> {
               );
             },
           )
-      );
+        );
     });
   }
 
@@ -46,13 +35,12 @@ class FadeIn extends State<SplashScreen> {
     return MaterialApp(
       home: Scaffold(
         body: Center(
-          child: Container(
-            child: Hero(
-              tag: 'title',
-              child: new FlutterLogo(
-                size: 200.0, style: _logoStyle,
-              ),
-            ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Image.asset("images/saviour_logo.png"),
+              SlideFadeTransition(child: Text("Saviour",style: TextStyle(fontSize: 50,color: Colors.grey[800]),),offset: -2,)
+            ],
           ),
         ),
       ),

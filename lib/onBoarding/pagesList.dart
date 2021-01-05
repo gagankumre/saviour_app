@@ -11,7 +11,7 @@ List<Widget> getPages(){
           Center(
             child: Image(
               image: AssetImage(
-                'images/onboarding0.png',
+                'images/onboarding1.png',
               ),
               height: 300.0,
               width: 300.0,
@@ -19,12 +19,12 @@ List<Widget> getPages(){
           ),
           SizedBox(height: 30.0),
           Text(
-            'Connect people\naround the world',
+            'Select a sample\nof leaf',
             style: kTitleStyle,
           ),
           SizedBox(height: 15.0),
           Text(
-            'Lorem ipsum dolor sit amet, consect adipiscing elit, sed do eiusmod tempor incididunt ut labore et.',
+            'Capture a picture of leaf from camera, or select an image of leaf from the gallery.',
             style: kSubtitleStyle,
           ),
         ],
@@ -38,7 +38,7 @@ List<Widget> getPages(){
           Center(
             child: Image(
               image: AssetImage(
-                'images/onboarding1.png',
+                'images/onboarding0.png',
               ),
               height: 300.0,
               width: 300.0,
@@ -46,12 +46,12 @@ List<Widget> getPages(){
           ),
           SizedBox(height: 30.0),
           Text(
-            'Live your life smarter\nwith us!',
+            'Adjust the\nimage',
             style: kTitleStyle,
           ),
           SizedBox(height: 15.0),
           Text(
-            'Lorem ipsum dolor sit amet, consect adipiscing elit, sed do eiusmod tempor incididunt ut labore et.',
+            'Adjust the selected image in such a way that the leaf is clearly visible on the screen. And press confirm to proceed',
             style: kSubtitleStyle,
           ),
         ],
@@ -73,12 +73,12 @@ List<Widget> getPages(){
           ),
           SizedBox(height: 30.0),
           Text(
-            'Get a new experience\nof imagination',
+            'Get the\nresults',
             style: kTitleStyle,
           ),
           SizedBox(height: 15.0),
           Text(
-            'Lorem ipsum dolor sit amet, consect adipiscing elit, sed do eiusmod tempor incididunt ut labore et.',
+            'The test results of the selected image will be displayed with its corresponding accuracy',
             style: kSubtitleStyle,
           ),
         ],

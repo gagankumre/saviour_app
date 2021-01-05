@@ -24,7 +24,7 @@ class _HomeState extends State<Home> {
 
   loadModel() async{
     await Tflite.loadModel(
-        model: "res/plant_disease_model.tflite",
+        model: "res/plant_disease_model_3.tflite",
         labels: "res/disease_label.txt",
         numThreads: 1, // defaults to 1
         isAsset: true, // defaults to true, set to false to load resources outside assets
