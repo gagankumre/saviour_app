@@ -77,8 +77,13 @@ class _ResultState extends State<Result> {
             SizedBox(height: 50),
             Column(
               children: [
-                Text('disease - '+disease),
-                Text('accuracy - '+accuracy.toString()),
+                Text('Disease - '+disease,style: TextStyle(
+                  fontSize: 25
+                ),),
+                SizedBox(height: 10,),
+                Text('Accuracy - '+accuracy.toStringAsFixed(7),style: TextStyle(
+                    fontSize: 20
+                ),),
               ],
             )
           ]
