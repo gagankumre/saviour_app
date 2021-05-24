@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:circular_bottom_navigation/circular_bottom_navigation.dart';
 import 'package:circular_bottom_navigation/tab_item.dart';
-import 'package:saviour_app/container/detectViaImage.dart';
-import 'package:saviour_app/container/detectLiveViaCamera.dart';
+import 'package:saviour_app/container/checkForDisease.dart';
+import 'package:saviour_app/container/feedbackContainer.dart';
 import 'package:saviour_app/util/customAppBar.dart';
 import 'package:tflite/tflite.dart';
 
@@ -18,8 +18,8 @@ class _HomeState extends State<Home> {
   CircularBottomNavigationController _navigationController;
 
   List<TabItem> tabItems = List.of([
-    new TabItem(Icons.image_search_outlined, "Detect via Image", Colors.cyan, labelStyle: TextStyle(fontWeight: FontWeight.bold)),
-    new TabItem(Icons.camera_alt_outlined, "Detect Live via Camera", Colors.red, labelStyle: TextStyle(fontWeight: FontWeight.bold)),
+    new TabItem(Icons.image_search_outlined, "Check for disease", Colors.cyan, labelStyle: TextStyle(fontWeight: FontWeight.bold)),
+    new TabItem(Icons.feedback_outlined, "Feedback", Colors.red, labelStyle: TextStyle(fontWeight: FontWeight.bold)),
   ]);
 
   loadModel() async{
@@ -55,9 +55,9 @@ class _HomeState extends State<Home> {
 
   Widget bodyContainer() {
     if(selectedPos==0){
-      return DetectViaImage();
+      return CheckForDisease();
     }else{
-      return DetectLiveViaCamera();
+      return FeedbackContainer();
     }
   }
 

@@ -5,12 +5,12 @@ import 'package:saviour_app/onBoarding/onBoardingScreen.dart';
 import 'package:saviour_app/routes/CustomDialog.dart';
 import 'package:image_picker/image_picker.dart';
 
-class DetectViaImage extends StatefulWidget {
+class CheckForDisease extends StatefulWidget {
   @override
-  _DetectViaImageState createState() => _DetectViaImageState();
+  _CheckForDiseaseState createState() => _CheckForDiseaseState();
 }
 
-class _DetectViaImageState extends State<DetectViaImage> {
+class _CheckForDiseaseState extends State<CheckForDisease> {
 
   File _imageFile;
   final _picker = ImagePicker();
@@ -53,6 +53,8 @@ class _DetectViaImageState extends State<DetectViaImage> {
             child: Icon(Icons.camera_alt_outlined,size: 40.0,color: Colors.black,),
             heroTag: 1,
           ),
+          SizedBox(height: 5,),
+          Text("Open Camera"),
           SizedBox(height: 10,),
           FloatingActionButton(
             backgroundColor: Colors.orange,
@@ -60,6 +62,8 @@ class _DetectViaImageState extends State<DetectViaImage> {
             child: Icon(Icons.photo_library_outlined,size: 40.0,color: Colors.black,),
             heroTag: 2,
           ),
+          SizedBox(height: 5,),
+          Text("Open Gallery"),
           SizedBox(height: 10,),
         ],
       ),

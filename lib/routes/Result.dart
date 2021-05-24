@@ -1,7 +1,10 @@
 import 'dart:io';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:saviour_app/util/customAppBar.dart';
+import 'package:saviour_app/util/gradientBoxDecoration.dart';
 import 'package:tflite/tflite.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Result extends StatefulWidget {
 
@@ -13,11 +16,22 @@ class Result extends StatefulWidget {
 }
 
 class _ResultState extends State<Result> {
+
   final File imageFile;
+
   _ResultState({@required this.imageFile});
 
   String disease="loading";
   double accuracy=0.0;
+
+  _launchURLGoogle() async {
+    var url ='https://www.google.com/search?q='+disease;
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 
   getResult() async {
     var recognitions = await Tflite.runModelOnImage(
@@ -33,6 +47,7 @@ class _ResultState extends State<Result> {
       if(recognitions.isNotEmpty){
         disease=recognitions[0]['label'];
         accuracy=recognitions[0]['confidence'];
+        accuracy*=100;
       }else{
         disease='not detected';
       }
@@ -53,40 +68,97 @@ class _ResultState extends State<Result> {
     return Scaffold(
       appBar: customAppBar(),
       body: SafeArea(
-        child: Column(
-          // mainAxisAlignment: MainAxisAlignment.center,
-          children:<Widget>[
-            SizedBox(height: MediaQuery.of(context).size.width*.025),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(30.0),
-                  child: Hero(
-                    tag: 'image-file',
-                    child: Image.file(
-                      widget.imageFile,
-                      width: MediaQuery.of(context).size.width*.95,
-                      height: MediaQuery.of(context).size.width*.95,
-                      fit: BoxFit.cover,
+        child: Container(
+          decoration: gradientBoxDecoration(),
+          child: Column(
+            // mainAxisAlignment: MainAxisAlignment.center,
+            children:<Widget>[
+              SizedBox(height: MediaQuery.of(context).size.height*.04),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(30.0),
+                    child: Hero(
+                      tag: 'image-file',
+                      child: Image.file(
+                        widget.imageFile,
+                        width: MediaQuery.of(context).size.width*.80,
+                        height: MediaQuery.of(context).size.width*.80,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
-            SizedBox(height: 50),
-            Column(
-              children: [
-                Text('Disease - '+disease,style: TextStyle(
-                  fontSize: 25
-                ),),
-                SizedBox(height: 10,),
-                Text('Accuracy - '+accuracy.toStringAsFixed(7),style: TextStyle(
-                    fontSize: 20
-                ),),
-              ],
-            )
-          ]
+                ],
+              ),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+              Column(
+                children: [
+                  Text('Disease - '+disease,style: TextStyle(
+                    fontSize: 25
+                  ),),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.005),
+                  Text('Accuracy - '+accuracy.toStringAsFixed(5)+' %',style: TextStyle(
+                      fontSize: 20
+                  ),),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+
+                  Card(
+                    color: Colors.green,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12.0),
+                    ),
+                    margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height * 0.04),
+                    child: Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            _launchURLGoogle();
+                          });
+                          // print('clicked');
+                        },
+                        child: ListTile(
+                          title: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Center(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Text(
+                                      "Click here to read more about ",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Colors.white, fontSize: 25,fontWeight: FontWeight.w800,),
+                                    ),
+                                    SizedBox(height: MediaQuery.of(context).size.height * 0.001),
+                                    Text(disease,style: TextStyle(
+                                      color: Colors.white,
+                                        fontSize: 20
+                                    ),),
+                                  ]
+                                ),
+                              ),
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width * 0.03,
+                              ),
+                              Center(
+                                  child: Icon(
+                                    Icons.arrow_forward,
+                                    color: Colors.white,
+                                    size: 30,
+                                  )),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ]
+          ),
         ),
       ),
     );
